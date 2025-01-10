@@ -1,12 +1,7 @@
-# My take 2 at this problem. But this time I'm using ast module/library . Check: https://docs.python.org/3/library/ast
-#
-# Turns out this method is on average 3,28 (average from 100 calls) times slower than types_remover.py and removes \
-# comments (not doc strings) It for sure has less / None bugs tho
-
 import ast
 
 
-class DowngradeAnnAssign(ast.NodeTransformer):
+class _DowngradeAnnAssign(ast.NodeTransformer):
 	"""Converts AnnAssign nodes (annotated assignment) to simpler Assign nodes."""
 
 	def visit_AnnAssign(self, node: ast.AnnAssign) -> ast.Assign | None:
@@ -24,9 +19,6 @@ def remove_types_ast(path: str, *, return_str: bool = False, output_file_path: s
 		:param output_file_path: dictates where the function saves the data; can be mixed with return_str param
 		:return: str if return_str is True else None
 	"""
-	if not (return_str is None and output_file_path is not None) or \
-			(return_str is not None and output_file_path is None):
-		raise ValueError("One of the keyword params must be set!")
 
 	with open(path) as f:
 		nodes = ast.parse(f.read())
@@ -41,7 +33,7 @@ def remove_types_ast(path: str, *, return_str: bool = False, output_file_path: s
 			if node.args.kwarg is not None:
 				node.args.kwarg.annotation = None
 			node.returns = None
-	nodes = ast.fix_missing_locations(DowngradeAnnAssign().visit(nodes))
+	nodes = ast.fix_missing_locations(_DowngradeAnnAssign().visit(nodes))
 
 	if return_str:
 		return ast.unparse(nodes)

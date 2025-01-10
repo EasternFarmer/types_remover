@@ -1,21 +1,15 @@
 # Types remover(s)
 
-**My type removers I made taken
-from [The_Farmer_Was_Replaced](https://github.com/EasternFarmer/The-Farmer-Was-Replaced/tree/main/scripts) repo**
+<!-- **My type removers I made taken from [The_Farmer_Was_Replaced](https://github.com/EasternFarmer/The-Farmer-Was-Replaced/) repo and updated as necessary** -->
 
-## About
 
-This repo has two protected scripts and one main file you can import from:
+This packet has two available functions `remove_types_ast` and `remove_types_if`, that are doing almost the same thing
+with implementation. <br>
 
-- `_types_remover_if.py` - A script I made from the top using if's, a for loop looping over the lines in the input file
-  and regex for parameter detection
-- `_types_remover_ast.py` - A script I spent a lot longer in documentation and asking for information than writing
-- `types_remover.py` - A file created just so you can import the functions from it. <br>
-
-The functions in the files are called `remove_types_ast` and `remove_types_if` and are doing almost the same thing
-except implementation.<br>
+From the tests I can tell you that `remove_types_ast` is on average 3,28 (average from 100 calls) times slower than
+`remove_types_if`
 
 ### IMPORTANT TO NOTE
 
-- The `remove_types_ast` function removes comments
+- The `remove_types_ast` function removes comments (not doc-strings)
 - Both functions turn multi-line data assignation into a one-line statement
