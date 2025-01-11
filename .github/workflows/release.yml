@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    name: Build distribution 📦
+    name: build
     runs-on: ubuntu-latest
 
     steps:
@@ -33,7 +33,7 @@ jobs:
         path: dist/
   publish-to-pypi:
     name: >-
-      Publish Python 🐍 distribution 📦 to PyPI
+      publish-to-pypi
     if: startsWith(github.ref, 'refs/tags/')  # only publish to PyPI on tag pushes
     needs:
     - build
