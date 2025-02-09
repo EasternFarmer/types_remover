@@ -1,4 +1,5 @@
 import re
+from typing import Optional
 
 
 def _parse_line(line: str) -> str | bool:
@@ -36,7 +37,17 @@ def _parse_def_statement(line: str) -> str:
     return f'{' ' * spaces}def {function_name}({', '.join(args2)}):'
 
 
-def remove_types(path: str, *, return_str: bool = False, output_file: str = 'output.py') -> None | str:
+def remove_types(path: str, *, return_str: bool = False, output_file_path: Optional[str] = None) -> Optional[str]:
+    """
+        Strips the types declared in the file at **path** and outputs it to output_file_path
+        :param path: Required parameter deciding what file to strip from types
+        :param return_str: dictates if the function returns a str
+        :param output_file_path: dictates where the function saves the data. defaults to 'output.py'
+        :return: str if return_str is True else None
+    """
+    if output_file_path is None:
+        output_file_path = 'output.py'
+
     with open(path) as f:
         file = [line.rstrip('\n') for line in f.readlines()]
 
@@ -140,8 +151,8 @@ def remove_types(path: str, *, return_str: bool = False, output_file: str = 'out
                 else: new_file.append(' ' * (len(tuple_line) - len(tuple_line.lstrip())) + ''.join(tuple_line.split()))
                 tuple_line = ''
 
+    with open(output_file_path, 'w') as f:
+        f.writelines('\n'.join(new_file))
     if return_str:
         return '\n'.join(new_file)
-    with open(output_file, 'w') as f:
-        f.writelines('\n'.join(new_file))
     return None

@@ -1,23 +1,25 @@
 [build-system]
-requires = ["hatchling"]
-build-backend = "hatchling.build"
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
 
 [project]
 name = "types_remover"
-version = "1.0.0"
+version = "1.0.2"
 authors = [
   { name="EasternFarmer", email="franek.banas1@gmail.com" },
 ]
-license = "GPL-3.0-or-later"
+#license = "GPL-3.0-or-later"
 description = "A small package that removes types from a file"
 readme = "README.md"
 
 requires-python = ">=3.12"
 classifiers = [
     "Programming Language :: Python :: 3",
-    "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
     "Operating System :: OS Independent",
 ]
+
+[project.scripts]
+remove-types = "types_remover.cli:main"
 
 [project.urls]
 Homepage = "https://github.com/EasternFarmer/types_remover"

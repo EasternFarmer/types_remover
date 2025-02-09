@@ -4,12 +4,12 @@
 
 
 This packet has two available functions `remove_types_ast` and `remove_types_if`, that are doing almost the same thing
-with implementation. <br>
+with different implementation. And one cmd command `remove-types` that uses argparse and `remove_types_ast`<br>
 
 From the tests I can tell you that `remove_types_ast` is on average 3,28 (average from 100 calls) times slower than
 `remove_types_if`
 
 ### IMPORTANT TO NOTE
 
-- The `remove_types_ast` function removes comments (not doc-strings)
+- The `remove_types_ast` function and `remove-types` cmd command both remove comments (not doc-strings)
 - Both functions turn multi-line data assignation into a one-line statement
